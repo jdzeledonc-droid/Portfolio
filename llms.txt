@@ -1,0 +1,57 @@
+# Josué David Zeledón Crespi — UX/UI Portfolio
+
+> Diseñador Industrial reconvertido en UX/UI Senior con 5 años de experiencia. Especializado en design systems, migraciones de plataformas y experiencias digitales que generan confianza.
+
+## About
+
+- Name: Josué David Zeledón Crespi
+- Role: Senior UX/UI Designer
+- Location: San José, Costa Rica
+- Email: jdzeledonc@gmail.com
+- LinkedIn: https://www.linkedin.com/in/josue-david-zeledón-crespi-388916190
+- Website: https://josuezeledon.com
+
+## Skills
+
+- UX/UI Design
+- Design Systems (foundations, components, variables, prototypes)
+- Figma (end-to-end)
+- User Research
+- Information Architecture
+- Interaction Design
+- Visual Design
+- Platform Migrations
+- AI-assisted Design Workflows
+
+## Experience
+
+### Senior Product Designer — BetAnything (2024–Present)
+UX Senior role leading design system creation and platform migration from external agency to in-house scalable practice. Contributed to information architecture restructuring, component libraries, and cross-functional collaboration with Product, Engineering, Content, and Stakeholders.
+
+### Web & Mobile Visual Design Consultant — Cisco Systems (2022–2024)
+Contributed to the Cisco Design System. Worked embedded in cross-functional teams on research, interface design, and platform enhancements for desktop, tablet, and mobile.
+
+### Web & App Visual Design Consultant — Accenture / SynOps (2022)
+UX prototype and immersive commerce design for SynOps Next Generation platform. Research, interface design, and graphics for desktop.
+
+### Media & Graphics Design Analyst (2019–2022)
+Visual design and media production for multiple clients.
+
+## Education
+
+- Ingeniería en Diseño Industrial — Tecnológico de Costa Rica (TEC), Cartago (2014–2023)
+- Google UX Design Certificate — 7-course Professional Certificate (2022–2026)
+
+## Case Studies
+
+### 1. BetAnything — Platform Migration & Design System
+Migrated from an external agency model to an in-house scalable design practice. Created a comprehensive design system with foundations, components, and documentation. Restructured the information architecture and established content strategy.
+
+### 2. Cisco Systems — Design System & Enhancements
+Contributed to the Cisco Design System over 2 years. Conducted research, designed interfaces, and delivered enhancements across desktop, tablet, and mobile platforms.
+
+### 3. SynOps Next Generation — Accenture
+Designed UX prototypes for an immersive commerce platform. Focused on research-driven interface design and graphics for a desktop application.
+
+### 4. PULSE DJ + Live Music
+Interface design for a multi-touch table music application. Created modern UI with custom iconography, loop visualization, and a recording flow designed for creative workflows.
