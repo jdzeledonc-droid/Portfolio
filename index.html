@@ -94,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 .case{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);min-height:460px;transition:background .4s}
 .case:last-child{border-bottom:1px solid var(--line)}
-.case:hover{background:var(--white)}
+.case:hover{background:rgba(255,255,255,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
 .case:nth-child(even) .case-info{order:2}
 .case:nth-child(even) .case-vis{order:1}
 .case-info{padding:60px 48px;display:flex;flex-direction:column;justify-content:space-between}
@@ -111,7 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .case-vis{overflow:hidden;position:relative}
 .vis-inner{position:absolute;inset:20px;box-shadow:0 8px 40px rgba(0,0,0,.1);overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1)}
 .case:hover .vis-inner{transform:scale(1.015)}
-.vis-inner img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.vis-inner img{width:100%;height:124%;margin-top:-12%;object-fit:cover;object-position:center;display:block;will-change:transform}
 
 .contact{padding:140px 48px;background:var(--ink);color:var(--paper);text-align:center;position:relative;overflow:hidden}
 .contact-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(184,146,74,.07),transparent 70%);pointer-events:none}
@@ -155,17 +155,17 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
 .conf-note-text{font-size:12px;color:var(--ink-light);font-weight:300;line-height:1.7}
 
 .img-full{width:100%;margin:28px 0}
-.img-full img{width:100%;display:block;border:1px solid var(--line)}
+.img-full img{width:100%;display:block}
 .img-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
 .img-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:28px 0}
-.img-2col img,.img-3col img{width:100%;display:block;border:1px solid var(--line)}
+.img-2col img,.img-3col img{width:100%;display:block}
 .img-caption{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-top:-16px;margin-bottom:28px}
 .before-after{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
 .ba-item{position:relative}
 .ba-label{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;font-weight:500;z-index:1}
 .ba-label.before{background:rgba(0,0,0,.65);color:rgba(255,255,255,.8)}
 .ba-label.after{background:var(--gold);color:var(--ink)}
-.ba-item img{width:100%;display:block;border:1px solid var(--line)}
+.ba-item img{width:100%;display:block}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
@@ -183,7 +183,37 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
   footer{flex-direction:column;gap:6px}
   .nav-links{display:none}
   .lang-toggle{padding:4px 8px;font-size:9px}
+  .gallery-scroll{margin:20px -20px;padding:0 20px 16px}
+  .gallery-scroll img{height:260px}
 }
+
+/* ── Gallery scroll (horizontal filmstrip) ── */
+.gallery-scroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:28px -48px;padding:0 48px 16px}
+.gallery-scroll::-webkit-scrollbar{display:none}
+.gallery-scroll img{flex-shrink:0;height:380px;width:auto;max-width:80vw;scroll-snap-align:start;cursor:zoom-in;object-fit:cover;display:block}
+
+/* ── Lightbox ── */
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(8,8,8,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.lightbox.open{opacity:1;pointer-events:all}
+.lb-img{max-width:min(88vw,1200px);max-height:86vh;object-fit:contain;display:block;cursor:default}
+.lb-close{position:absolute;top:24px;right:24px;background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);padding:8px 18px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;transition:all .2s}
+.lb-close:hover{background:rgba(255,255,255,.08);color:#fff}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:18px;cursor:pointer;padding:14px 18px;transition:all .2s;font-family:var(--serif);line-height:1}
+.lb-arrow:hover{border-color:rgba(255,255,255,.3);color:#fff}
+.lb-prev{left:20px}.lb-next{right:20px}
+.lb-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.3);text-transform:uppercase;font-family:var(--sans)}
+
+/* ── YouTube / video embed ── */
+.ov-video{position:relative;width:100%;aspect-ratio:16/9;margin:28px 0;background:#000;overflow:hidden}
+.ov-video iframe{width:100%;height:100%;border:none;display:block}
+.ov-video-placeholder{width:100%;aspect-ratio:16/9;background:var(--paper2);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;margin:28px 0}
+.ov-video-placeholder span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-light)}
+.ov-video-thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;margin:28px 0;overflow:hidden;border-radius:6px;text-decoration:none;background:#000}
+.ov-video-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease,opacity .3s ease}
+.ov-video-thumb:hover img{transform:scale(1.03);opacity:.85}
+.ov-video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform .3s ease}
+.ov-video-thumb:hover .ov-video-play{transform:scale(1.1)}
+.ov-video-label{position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,.65);color:#fff;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:3px;pointer-events:none}
 </style>
 <script type="application/ld+json">
 {
@@ -264,7 +294,7 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
 <section id="work">
   <div class="work-header">
     <div class="section-label reveal" data-en="Selected Work" data-es="Trabajo seleccionado">Selected Work</div>
-    <h2 class="work-h2 reveal d1" data-html data-en="Four cases, one thread:<br><em>design that builds trust.</em>" data-es="Cuatro casos, un hilo:<br><em>diseño que genera confianza.</em>">Four cases, one thread:<br><em>design that builds trust.</em></h2>
+    <h2 class="work-h2 reveal d1" data-html data-en="Five cases, one thread:<br><em>design that builds trust.</em>" data-es="Cinco casos, un hilo:<br><em>diseño que genera confianza.</em>">Five cases, one thread:<br><em>design that builds trust.</em></h2>
   </div>
 
   <article class="case">
@@ -308,7 +338,7 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
       <button class="case-btn" onclick="openOverlay('synops')" data-en="View Case" data-es="Ver Caso">View Case</button>
     </div>
     <div class="case-vis" style="background:#0d0d0d">
-      <div class="vis-inner"><img src="https://www.figma.com/api/mcp/asset/6675d95d-8e4f-407e-93df-c74de20201f6" alt="SynOps"></div>
+      <div class="vis-inner"><img src="images/synops-landing.png" alt="SynOps"></div>
     </div>
   </article>
 
@@ -324,6 +354,30 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
         <div class="case-pills"><span class="pill">Interface Design</span><span class="pill" data-en="Custom Iconography" data-es="Iconografía Custom">Custom Iconography</span><span class="pill">Multi-touch</span><span class="pill">Interaction Design</span></div>
       </div>
       <button class="case-btn" onclick="openOverlay('pulse')" data-en="View Case" data-es="Ver Caso">View Case</button>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="case-info">
+      <div>
+        <div class="case-meta"><span class="case-num">05</span><span class="case-tag">UX Designer · AI-Native · Marketplace</span></div>
+        <h3 class="case-title">EliteMarket</h3>
+        <p class="case-desc" data-en="Designed a premium digital services marketplace from zero — using Claude and Figma MCP as co-pilots. From token architecture to mobile-first flows, every UX decision was made alongside AI with real production output." data-es="Diseñé un marketplace premium de servicios digitales desde cero — usando Claude y Figma MCP como co-pilotos. Desde arquitectura de tokens hasta flujos mobile-first, cada decisión de diseño fue tomada junto a IA con output real en producción.">Designed a premium digital services marketplace from zero — using Claude and Figma MCP as co-pilots. From token architecture to mobile-first flows, every UX decision was made alongside AI with real production output.</p>
+        <div class="case-pills"><span class="pill">UX Design</span><span class="pill">Design System</span><span class="pill">AI Workflow</span><span class="pill">Figma MCP</span><span class="pill">Mobile-first</span><span class="pill">Token Architecture</span></div>
+      </div>
+      <button class="case-btn" onclick="openOverlay('elite')" data-en="View Case" data-es="Ver Caso">View Case</button>
+    </div>
+    <div class="case-vis" style="background:linear-gradient(145deg,#080818 0%,#120828 60%,#090d1e 100%)">
+      <div class="vis-inner" style="display:flex;flex-direction:column;gap:10px;padding:24px 20px;background:transparent;box-shadow:none;justify-content:center">
+        <div style="height:32px;border-radius:16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1)"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);height:72px"></div>
+          <div style="border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);height:72px"></div>
+          <div style="border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);height:72px"></div>
+          <div style="border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.09);height:72px"></div>
+        </div>
+        <div style="height:18px;border-radius:9px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);width:55%"></div>
+      </div>
     </div>
   </article>
 </section>
@@ -359,10 +413,21 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
     </div>
     <div class="ov-section">
       <div class="ov-section-title">Overview</div>
-      <p class="ov-text" data-en="Large-scale betting platform migration — from external agency to internal UX practice. As UX Senior, I contributed hands-on to research, content strategy, wireframing, prototyping, usability studies, and a complete design system built from scratch with Rocket Air." data-es="Migración de plataforma de apuestas a gran escala — de agencia externa a práctica UX interna. Como UX Senior, contribuí hands-on en research, content strategy, wireframing, prototyping, usability studies y un design system completo construido desde cero junto a Rocket Air.">Large-scale betting platform migration — from external agency to internal UX practice. As UX Senior, I contributed hands-on to research, content strategy, wireframing, prototyping, usability studies, and a complete design system built from scratch with Rocket Air.</p>
+      <p class="ov-text" data-en="Large-scale betting platform migration — from external agency to internal UX practice. As UX Senior, I led the end-to-end UX process: research, content strategy, information architecture, wireframing, prototyping, usability testing, and a complete design system built from scratch with Rocket Air. The result: a cohesive modernized experience, measurable growth in visits, and UX becoming an internally trusted driver of product decisions." data-es="Migración de plataforma de apuestas a gran escala — de agencia externa a práctica UX interna. Como UX Senior, lideré el proceso UX end-to-end: research, content strategy, arquitectura de información, wireframing, prototyping, usability testing y un design system completo construido desde cero junto a Rocket Air. El resultado: una experiencia modernizada y cohesiva, crecimiento medible en visitas, y el UX convirtiéndose en driver interno de decisiones de producto.">Large-scale betting platform migration — from external agency to internal UX practice. As UX Senior, I led the end-to-end UX process: research, content strategy, information architecture, wireframing, prototyping, usability testing, and a complete design system built from scratch with Rocket Air. The result: a cohesive modernized experience, measurable growth in visits, and UX becoming an internally trusted driver of product decisions.</p>
     </div>
-    <div class="img-full"><img src="images/bet-ia-before.png" alt="BetAnything Design System Cover"></div>
-    <p class="img-caption" data-en="BetAnything Design System · Official Cover" data-es="BetAnything Design System · Portada oficial">BetAnything Design System · Official Cover</p>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="Context & Collaboration" data-es="Contexto & Colaboración">Context & Collaboration</div>
+      <p class="ov-text" data-en="When this project began, the internal UX team was newly formed and still earning trust — much of the product strategy had been defined by an external agency. The migration spanned multiple product areas with evolving business requirements and high technical constraints. Collaboration was continuous and cross-functional, involving workshops, design reviews, stakeholder sessions, and feedback loops — not handoffs. This approach gradually shifted confidence from the agency to the internal team." data-es="Cuando comenzó este proyecto, el equipo UX interno era recién formado y aún ganaba confianza — gran parte de la estrategia del producto había sido definida por una agencia externa. La migración abarcó múltiples áreas de producto con requisitos de negocio cambiantes y altas restricciones técnicas. La colaboración fue continua y cross-funcional, involucrando workshops, design reviews, sesiones con stakeholders y feedback loops — no handoffs. Este enfoque gradualmente desplazó la confianza de la agencia hacia el equipo interno.">When this project began, the internal UX team was newly formed and still earning trust — much of the product strategy had been defined by an external agency. The migration spanned multiple product areas with evolving business requirements and high technical constraints. Collaboration was continuous and cross-functional, involving workshops, design reviews, stakeholder sessions, and feedback loops — not handoffs. This approach gradually shifted confidence from the agency to the internal team.</p>
+      <div class="ov-meta" style="margin-top:24px">
+        <div class="ov-meta-item"><div class="ov-meta-label">Role</div><div class="ov-meta-val">UX Senior Designer</div></div>
+        <div class="ov-meta-item"><div class="ov-meta-label" data-en="UX Team" data-es="Equipo UX">UX Team</div><div class="ov-meta-val" data-en="Senior Designers" data-es="Diseñadores Senior">Senior Designers</div></div>
+        <div class="ov-meta-item"><div class="ov-meta-label" data-en="Partners" data-es="Partners">Partners</div><div class="ov-meta-val">Product · Engineering · Content · Stakeholders</div></div>
+      </div>
+    </div>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="The Problem" data-es="El Problema">The Problem</div>
+      <p class="ov-text" data-en="The company inherited a complex betting platform with inconsistent interfaces, unclear ownership, and limited documentation. The lack of shared standards and alignment between design, product, and engineering made it impossible to maintain consistency, meet evolving business needs, or deliver efficiently across product areas. UX had no seat at the table — and no credibility yet." data-es="La empresa heredó una plataforma de apuestas compleja con interfaces inconsistentes, propiedad poco clara y documentación limitada. La falta de estándares compartidos y alineación entre diseño, producto e ingeniería hacía imposible mantener consistencia, satisfacer necesidades cambiantes del negocio o entregar eficientemente en múltiples áreas de producto. El UX no tenía lugar en la mesa — ni credibilidad todavía.">The company inherited a complex betting platform with inconsistent interfaces, unclear ownership, and limited documentation. The lack of shared standards and alignment between design, product, and engineering made it impossible to maintain consistency, meet evolving business needs, or deliver efficiently across product areas. UX had no seat at the table — and no credibility yet.</p>
+    </div>
     <div class="ov-section">
       <div class="ov-section-title" data-en="Before / After · Platform" data-es="Before / After · Plataforma">Before / After · Platform</div>
       <p class="ov-text" style="margin-bottom:20px" data-en="From a legacy platform with inconsistent interfaces to a modernized, cohesive experience with internal UX ownership." data-es="De una plataforma legacy con interfaces inconsistentes a una experiencia modernizada, cohesiva y con ownership UX interno.">From a legacy platform with inconsistent interfaces to a modernized, cohesive experience with internal UX ownership.</p>
@@ -389,33 +454,28 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
     <div class="ov-section">
       <div class="ov-section-title">Design System · BA Core 00</div>
     </div>
-    <div class="img-2col">
-      <img src="images/bet-typography.webp" alt="Color Palette">
-      <img src="images/bet-hero-component.webp" alt="Typography">
+    <div class="gallery-scroll">
+      <img src="images/bet-ia-before.png" alt="BetAnything Design System · Official Cover">
+      <img src="images/bet-typography.webp" alt="Applied Color Palette">
+      <img src="images/bet-hero-component.webp" alt="Typographic Scale (Aeonik Pro)">
+      <img src="images/bet-navigation.webp" alt="Hero Component · Desktop & Mobile">
+      <img src="images/bet-mega-nav.webp" alt="Navigation Pre/Post Login">
+      <img src="images/bet-buttons.webp" alt="Mega Nav · Button CTAs">
+      <img src="images/bet-inputs.webp" alt="Input Components">
+      <img src="images/bet-icons.webp" alt="Icon System">
+      <img src="images/bet-cards.webp" alt="Card Components">
+      <img src="images/bet-breakpoints.webp" alt="Breakpoints">
+      <img src="images/cisco-issue-definition.png" alt="Breakpoint System · SM / MD / LG">
     </div>
-    <p class="img-caption">Applied Color Palette · Typographic Scale (Aeonik Pro)</p>
-    <div class="img-full"><img src="images/bet-navigation.webp" alt="Hero Component"></div>
-    <p class="img-caption">Hero Component · Desktop & Mobile</p>
-    <div class="img-2col">
-      <img src="images/bet-mega-nav.webp" alt="Navigation">
-      <img src="images/bet-buttons.webp" alt="Mega Nav">
-    </div>
-    <p class="img-caption">Navigation Pre/Post Login · Mega Nav</p>
-    <div class="img-2col">
-      <img src="images/bet-inputs.webp" alt="Buttons">
-      <img src="images/bet-icons.webp" alt="Inputs">
-    </div>
-    <p class="img-caption">Button CTAs · Input Components</p>
-    <div class="img-2col">
-      <img src="images/bet-cards.webp" alt="Icons">
-      <img src="images/bet-breakpoints.webp" alt="Cards">
-    </div>
-    <p class="img-caption">Icon System · Card Components</p>
-    <div class="img-full"><img src="images/cisco-issue-definition.png" alt="Breakpoints"></div>
-    <p class="img-caption">Breakpoint System · SM / MD / LG</p>
+    <p class="img-caption" data-en="Cover · Color · Type · Hero · Navigation · CTAs · Inputs · Icons · Cards · Breakpoints — slide →" data-es="Cover · Color · Tipo · Hero · Navegación · CTAs · Inputs · Iconos · Cards · Breakpoints — desliza →">Cover · Color · Type · Hero · Navigation · CTAs · Inputs · Icons · Cards · Breakpoints — slide →</p>
     <div class="ov-section">
       <div class="ov-section-title">Outcomes</div>
-      <p class="ov-text" data-en="Growth in visits confirmed by post-migration SEO data. Platform migrated with cohesive and modernized UX. Internal team gained full UX ownership. BA Core design system now powers consistent design across multiple verticals." data-es="Crecimiento en visitas confirmado por datos SEO post-migración. Plataforma migrada con UX cohesiva y modernizada. El equipo interno ganó ownership UX completo. El design system BA Core ahora potencia diseño consistente en múltiples verticales.">Growth in visits confirmed by post-migration SEO data. Platform migrated with cohesive and modernized UX. Internal team gained full UX ownership. BA Core design system now powers consistent design across multiple verticals.</p>
+      <p class="ov-text" data-en="Growth in visits confirmed by post-migration SEO data. Platform migrated with cohesive and modernized UX. Internal team gained full UX ownership — replacing the external agency. BA Core design system now powers consistent design across multiple verticals and product lines." data-es="Crecimiento en visitas confirmado por datos SEO post-migración. Plataforma migrada con UX cohesiva y modernizada. El equipo interno ganó ownership UX completo — reemplazando a la agencia externa. El design system BA Core ahora potencia diseño consistente en múltiples verticales y líneas de producto.">Growth in visits confirmed by post-migration SEO data. Platform migrated with cohesive and modernized UX. Internal team gained full UX ownership — replacing the external agency. BA Core design system now powers consistent design across multiple verticals and product lines.</p>
+    </div>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="What We Learned" data-es="Lo Que Aprendimos">What We Learned</div>
+      <p class="ov-text" data-en="Trust is built incrementally — and UX credibility is earned through consistent delivery, clear communication, and documented decisions, not just great design. The shift from agency-led to internal ownership required as much organizational work as it did design work." data-es="La confianza se gana de forma incremental — y la credibilidad UX se construye a través de entregas consistentes, comunicación clara y decisiones documentadas, no solo de gran diseño. El cambio de dirección de agencia a ownership interno requirió tanto trabajo organizacional como trabajo de diseño.">Trust is built incrementally — and UX credibility is earned through consistent delivery, clear communication, and documented decisions, not just great design. The shift from agency-led to internal ownership required as much organizational work as it did design work.</p>
+      <p class="ov-text" style="margin-top:14px" data-en="What I'd do differently: establish documentation habits from day one. Every workshop, every decision, every iteration — documented. Well-documented artifacts are what continue to create value long after the project ends." data-es="Lo que haría diferente: establecer hábitos de documentación desde el primer día. Cada workshop, cada decisión, cada iteración — documentada. Los artefactos bien documentados son los que siguen generando valor mucho después de que el proyecto termina.">What I'd do differently: establish documentation habits from day one. Every workshop, every decision, every iteration — documented. Well-documented artifacts are what continue to create value long after the project ends.</p>
     </div>
     <div class="ov-quote" data-en="&quot;What I'd do differently: establish documentation habits earlier. Trust is built incrementally — well-documented artifacts are what continue to create value.&quot;" data-es="&quot;Lo que haría diferente: establecer hábitos de documentación más temprano. La confianza se gana de forma incremental — los artefactos bien documentados son los que siguen generando valor.&quot;">&quot;What I'd do differently: establish documentation habits earlier. Trust is built incrementally — well-documented artifacts are what continue to create value.&quot;</div>
     <div class="conf-note">
@@ -443,6 +503,10 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
       <div class="ov-section-title">Overview</div>
       <p class="ov-text" data-en="I contributed to the maintenance and enhancements of Cisco's Design System, ensuring coherence and accessibility across multiple platforms. I created presentation templates prioritizing storytelling — weaving research narratives and findings to communicate design decisions to global stakeholders." data-es="Contribuí al mantenimiento y enhancements del Design System de Cisco, asegurando coherencia y accesibilidad en múltiples plataformas. Creé templates de presentación priorizando el storytelling — tejiendo narrativas de research y hallazgos para comunicar decisiones de diseño a stakeholders globales.">I contributed to the maintenance and enhancements of Cisco's Design System, ensuring coherence and accessibility across multiple platforms. I created presentation templates prioritizing storytelling — weaving research narratives and findings to communicate design decisions to global stakeholders.</p>
     </div>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="The Challenge" data-es="El Reto">The Challenge</div>
+      <p class="ov-text" data-en="Contribute to an enterprise design system used across thousands of pages and dozens of product teams worldwide — where each enhancement had to be backward-compatible, accessibility-compliant (WCAG AA), and approved by global stakeholders before touching a single component in production." data-es="Contribuir a un design system enterprise usado en miles de páginas y decenas de equipos de producto en todo el mundo — donde cada enhancement debía ser retrocompatible, cumplir con accesibilidad (WCAG AA), y ser aprobado por stakeholders globales antes de tocar un solo componente en producción.">Contribute to an enterprise design system used across thousands of pages and dozens of product teams worldwide — where each enhancement had to be backward-compatible, accessibility-compliant (WCAG AA), and approved by global stakeholders before touching a single component in production.</p>
+    </div>
     <div class="img-full"><img src="images/cisco-process-overview.png" alt="Cisco DNA Center issue definition"></div>
     <p class="img-caption">Issue Definition · Cisco DNA Center — Selectable Card enhancement</p>
     <div class="ov-section">
@@ -458,13 +522,18 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
     <div class="img-full"><img src="images/pulse-preview.png" alt="Stakeholder Presentation"></div>
     <p class="img-caption">Stakeholder Presentation · Webex · Future Commerce Ecosystem</p>
     <div class="img-2col">
-      <img src="https://www.figma.com/api/mcp/asset/a7682eb8-857b-45b0-ad98-73fd43f012d9" alt="Selectable Card">
-      <img src="https://www.figma.com/api/mcp/asset/dac64942-8882-4511-bfd1-7e3399a90f09" alt="Design Exploration">
+      <img src="images/cisco-selectable-card.png" alt="Selectable Card">
+      <img src="images/cisco-research-a.png" alt="Design Exploration">
     </div>
     <p class="img-caption">Selectable Card (Checkbox) · Design Exploration</p>
 
-    <div class="img-full"><img src="https://www.figma.com/api/mcp/asset/08ad7962-ef6b-4262-9d1b-8ee8deec23f6" alt="Cisco Templates"></div>
+    <div class="img-full"><img src="images/cisco-templates.png" alt="Cisco Templates"></div>
     <p class="img-caption">Cisco.com · Page Templates · Hero Center/LG</p>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="Outcomes" data-es="Resultados">Outcomes</div>
+      <p class="ov-text" data-en="Component enhancements successfully published to Cisco's global design system library, now active across multiple product lines. Presentation templates changed how the team communicated research to stakeholders — reducing ambiguity in decisions and accelerating approval cycles across time zones." data-es="Enhancements de componentes publicados exitosamente en la librería global del design system de Cisco, ahora activos en múltiples líneas de producto. Los templates de presentación cambiaron cómo el equipo comunicaba research a stakeholders — reduciendo la ambigüedad en decisiones y acelerando los ciclos de aprobación entre zonas horarias.">Component enhancements successfully published to Cisco's global design system library, now active across multiple product lines. Presentation templates changed how the team communicated research to stakeholders — reducing ambiguity in decisions and accelerating approval cycles across time zones.</p>
+    </div>
+    <div class="ov-quote" data-en="&quot;Working at enterprise scale taught me that the most important design skill isn't making components — it's making decisions that survive every team that will use them.&quot;" data-es="&quot;Trabajar a escala enterprise me enseñó que la habilidad de diseño más importante no es crear componentes — es tomar decisiones que sobrevivan a cada equipo que los usará.&quot;">"Working at enterprise scale taught me that the most important design skill isn't making components — it's making decisions that survive every team that will use them."</div>
     <div class="conf-note">
       <div class="conf-note-label" data-en="Confidentiality Note" data-es="Nota de Confidencialidad">Confidentiality Note</div>
       <p class="conf-note-text">All rights to Cisco Systems Inc.</p>
@@ -490,26 +559,31 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
       <div class="ov-section-title">Overview</div>
       <p class="ov-text" data-en="At Accenture, I built a Figma prototype to demonstrate the usability of next-generation SynOps software. I designed a highly customizable luxury car buying simulation — including VR test drive, vehicle configuration, and metaverse commerce." data-es="En Accenture, construí un prototipo Figma para demostrar la usabilidad del software de próxima generación SynOps. Diseñé una simulación de compra de autos de lujo altamente personalizable — incluyendo VR test drive, configuración del vehículo y comercio metaverso.">At Accenture, I built a Figma prototype to demonstrate the usability of next-generation SynOps software. I designed a highly customizable luxury car buying simulation — including VR test drive, vehicle configuration, and metaverse commerce.</p>
     </div>
-    <div class="img-full"><img src="https://www.figma.com/api/mcp/asset/6675d95d-8e4f-407e-93df-c74de20201f6" alt="SynOps Hero"></div>
-    <p class="img-caption">Landing · Accenture SynOps · Next-Gen Content</p>
-    <div class="img-2col">
-      <img src="https://www.figma.com/api/mcp/asset/02108c5d-e8a1-4ba3-a324-3d8edf9bd3e9" alt="Customization">
-      <img src="https://www.figma.com/api/mcp/asset/337311b3-9b79-499f-a84e-cfe40c534900" alt="Interior">
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="The Challenge" data-es="El Reto">The Challenge</div>
+      <p class="ov-text" data-en="Build a compelling demo prototype under 2 months — showing how next-generation AI software could transform a complex, high-stakes purchase (luxury vehicles) into an immersive, personalized experience. The prototype had to feel production-ready for C-suite stakeholder presentations at Accenture." data-es="Construir un prototipo de demo en menos de 2 meses — mostrando cómo el software de próxima generación podría transformar una compra compleja y de alto riesgo (vehículos de lujo) en una experiencia inmersiva y personalizada. El prototipo debía sentirse listo para producción en presentaciones con C-suite de Accenture.">Build a compelling demo prototype under 2 months — showing how next-generation AI software could transform a complex, high-stakes purchase (luxury vehicles) into an immersive, personalized experience. The prototype had to feel production-ready for C-suite stakeholder presentations at Accenture.</p>
     </div>
-    <p class="img-caption">Customization Preview · Interior Selection</p>
-    <div class="img-2col">
-      <img src="https://www.figma.com/api/mcp/asset/becfcd82-98f7-446c-9e33-555304e2115c" alt="Car">
-      <img src="https://www.figma.com/api/mcp/asset/f088b583-dec7-4651-9b03-c3cf5c775d79" alt="Sustainability">
+    <div class="gallery-scroll">
+      <img src="images/synops-landing.png" alt="Landing · Accenture SynOps">
+      <img src="images/synops-nextgen.png" alt="Next-Gen Content · SynOps">
+      <img src="images/synops-customization-preview.png" alt="Customization Preview">
+      <img src="images/synops-customize-car.png" alt="Customize Your Car">
+      <img src="images/synops-interior.png" alt="Interior Selection">
+      <img src="images/synops-sustainability.png" alt="Measuring Sustainability">
+      <img src="images/synops-purchase.png" alt="Super GT 900 · Purchase Page">
     </div>
-    <p class="img-caption">Customize Your Car · Measuring Sustainability</p>
-    <div class="img-full"><img src="https://www.figma.com/api/mcp/asset/2a252930-cc30-4077-b131-dfef422cf599" alt="GT900"></div>
-    <p class="img-caption">Super GT 900 · Purchase Page</p>
+    <p class="img-caption">Landing · Customization · Interior · Car Config · Sustainability · Purchase — desliza →</p>
     <div class="ov-section">
       <div class="ov-section-title" data-en="Process" data-es="Proceso">Process</div>
       <div class="ov-step"><div class="ov-step-num">01</div><div><div class="ov-step-title" data-en="Problem Statement & Requirements" data-es="Problem Statement & Requisitos">Problem Statement & Requirements</div><div class="ov-step-desc" data-en="Challenge definition with stakeholders. Acceptance criteria for demo scope." data-es="Definición del desafío con stakeholders. Criterios de aceptación para el alcance del demo.">Challenge definition with stakeholders. Acceptance criteria for demo scope.</div></div></div>
       <div class="ov-step"><div class="ov-step-num">02</div><div><div class="ov-step-title" data-en="Research & Strategy" data-es="Research & Estrategia">Research & Strategy</div><div class="ov-step-desc" data-en="Research in luxury e-commerce, VR, and automotive configuration benchmarks." data-es="Research en e-commerce de lujo, VR y benchmarks de configuración automotriz.">Research in luxury e-commerce, VR, and automotive configuration benchmarks.</div></div></div>
       <div class="ov-step"><div class="ov-step-num">03</div><div><div class="ov-step-title" data-en="Internal Review & Approval" data-es="Review Interna & Aprobación">Internal Review & Approval</div><div class="ov-step-desc" data-en="Team presentation, refinement with feedback. Demo-ready prototype." data-es="Presentación al equipo, refinamiento con feedback. Prototipo demo-ready.">Team presentation, refinement with feedback. Demo-ready prototype.</div></div></div>
     </div>
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="Outcomes" data-es="Resultados">Outcomes</div>
+      <p class="ov-text" data-en="Demo prototype approved and presented in live Accenture SynOps stakeholder sessions. The experience became a reference for how next-generation commerce could look — combining VR, AI personalization, and metaverse integration into a single cohesive UX narrative that stakeholders could experience, not just observe." data-es="Prototipo de demo aprobado y presentado en sesiones en vivo de stakeholders de Accenture SynOps. La experiencia se convirtió en referencia de cómo podría ser el comercio de próxima generación — combinando VR, personalización IA e integración metaverso en una narrativa UX cohesiva que los stakeholders podían experimentar, no solo observar.">Demo prototype approved and presented in live Accenture SynOps stakeholder sessions. The experience became a reference for how next-generation commerce could look — combining VR, AI personalization, and metaverse integration into a single cohesive UX narrative that stakeholders could experience, not just observe.</p>
+    </div>
+    <div class="ov-quote" data-en="&quot;When you have 2 months and a C-suite audience, every screen has to tell its part of the story immediately. Ambiguity is a luxury you can't afford.&quot;" data-es="&quot;Cuando tienes 2 meses y una audiencia C-suite, cada pantalla debe contar su parte de la historia de inmediato. La ambigüedad es un lujo que no te puedes permitir.&quot;">"When you have 2 months and a C-suite audience, every screen has to tell its part of the story immediately. Ambiguity is a luxury you can't afford."</div>
     <div class="conf-note">
       <div class="conf-note-label" data-en="Confidentiality Note" data-es="Nota de Confidencialidad">Confidentiality Note</div>
       <p class="conf-note-text">All rights to Accenture Inc.</p>
@@ -532,23 +606,125 @@ footer{background:#0e0e0e;color:rgba(246,244,240,.18);padding:20px 48px;display:
       <div class="ov-meta-item"><div class="ov-meta-label" data-en="Platform" data-es="Plataforma">Platform</div><div class="ov-meta-val" data-en="Multi-touch Table" data-es="Mesa Multi-touch">Multi-touch Table</div></div>
     </div>
     <div class="ov-section">
+      <div class="ov-section-title" data-en="The Challenge" data-es="El Reto">The Challenge</div>
+      <p class="ov-text" data-en="Design a music creation app for a multi-touch table — a non-standard interface with unique constraints: large surface, no cursor precision, potential simultaneous multi-user interaction, and no physical controls. The audience: musicians of all levels who shouldn't have to think about the interface while creating." data-es="Diseñar una app de creación musical para una mesa multi-touch — una interfaz no estándar con restricciones únicas: superficie grande, sin precisión de cursor, posible interacción simultánea de múltiples usuarios, y sin controles físicos. El público: músicos de todos los niveles que no deberían pensar en la interfaz mientras crean.">Design a music creation app for a multi-touch table — a non-standard interface with unique constraints: large surface, no cursor precision, potential simultaneous multi-user interaction, and no physical controls. The audience: musicians of all levels who shouldn't have to think about the interface while creating.</p>
+    </div>
+    <div class="ov-section">
       <div class="ov-section-title" data-en="Concept" data-es="Concepto">Concept</div>
       <p class="ov-text" data-en="App for amateur and professional musicians. Create, compose, record, and share music through a modern interface. I designed the complete custom iconography and app logo." data-es="Aplicación para músicos amateurs y profesionales. Crear, componer, grabar y compartir música a través de una interfaz moderna. Diseñé la iconografía custom completa y el logo de la app.">App for amateur and professional musicians. Create, compose, record, and share music through a modern interface. I designed the complete custom iconography and app logo.</p>
       <p class="ov-text" style="margin-top:14px" data-html data-en="<strong>Semantic phrase:</strong> MODERN &amp; INSPIRING — a modern interface, as simple as possible to promote creativity." data-es="<strong>Semantic phrase:</strong> MODERN &amp; INSPIRING — una interfaz moderna, tan simple como sea posible para promover la creatividad."><strong>Semantic phrase:</strong> MODERN &amp; INSPIRING — a modern interface, as simple as possible to promote creativity.</p>
     </div>
-    <div class="img-full"><img src="images/pulse-concept.png" alt="PULSE Concept" style="background:#111"></div>
-    <p class="img-caption" data-en="App Icon · Name · Concept · Touchscreen Interactions" data-es="App Icon · Nombre · Concepto · Interacciones de touchscreen">App Icon · Name · Concept · Touchscreen Interactions</p>
-    <div class="img-full"><img src="https://www.figma.com/api/mcp/asset/3e100279-035d-452e-ae00-9efad567e4e1" alt="PULSE UI"></div>
-    <p class="img-caption" data-en="PULSE · Multi-touch Interface" data-es="PULSE · Interface multi-touch">PULSE · Multi-touch Interface</p>
-    <div class="img-full"><img src="https://www.figma.com/api/mcp/asset/24a5a30e-99af-4a20-9cc0-9e83fc7b4611" alt="PULSE Share"></div>
-    <p class="img-caption" data-en="PULSE · Share Screen" data-es="PULSE · Share screen">PULSE · Share Screen</p>
-    <div class="ov-section">
-      <div class="ov-section-title" data-en="Key Interactions" data-es="Interacciones clave">Key Interactions</div>
-      <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title">Record</div><div class="ov-step-desc" data-en="1st click: starts recording, blinking red dot. 2nd click: stops and shows sharing options. 3rd click: deletes recording." data-es="1er click: inicia grabación, punto rojo parpadeante. 2do click: detiene y muestra opciones de compartir. 3er click: elimina grabación.">1st click: starts recording, blinking red dot. 2nd click: stops and shows sharing options. 3rd click: deletes recording.</div></div></div>
-      <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title" data-en="Metronome" data-es="Metrónomo">Metronome</div><div class="ov-step-desc" data-en="Touch enables/disables. Bursting circles animation indicates active state." data-es="Touch habilita/deshabilita. Animación de círculos que estallan indica estado activo.">Touch enables/disables. Bursting circles animation indicates active state.</div></div></div>
-      <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title" data-en="Loop Tracks (7 layers)" data-es="Loop Tracks (7 capas)">Loop Tracks (7 layers)</div><div class="ov-step-desc" data-en="Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualization — independently controllable." data-es="Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualización — controlables independientemente.">Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualization — independently controllable.</div></div></div>
+    <div class="gallery-scroll">
+      <img src="images/pulse-ui.png" alt="PULSE UI">
+      <img src="images/pulse-concept.png" alt="PULSE Concept" style="background:#111">
+      <img src="images/pulse-share.png" alt="PULSE Share">
     </div>
+    <p class="img-caption" data-en="App Icon · Multi-touch Interface · Share Screen" data-es="App Icon · Interface multi-touch · Share Screen">App Icon · Multi-touch Interface · Share Screen</p>
+    <div class="ov-section" style="margin-top:48px">
+      <div class="ov-section-title" data-en="Process" data-es="Proceso">Process</div>
+    </div>
+    <div class="ov-step"><div class="ov-step-num">01</div><div><div class="ov-step-title" data-en="Concept & Semantic Brief" data-es="Concepto & Brief Semántico">Concept & Semantic Brief</div><div class="ov-step-desc" data-en="Defined MODERN & INSPIRING as the product's guiding principle — a phrase testable against every decision. If something didn't feel modern or inspiring, it didn't belong. This anchored the entire visual and interaction system before a single screen was drawn." data-es="Definí MODERN & INSPIRING como el principio guía del producto — una frase testeable contra cada decisión. Si algo no se sentía moderno o inspirador, no pertenecía. Esto ancló todo el sistema visual e interacción antes de dibujar una sola pantalla.">Defined MODERN & INSPIRING as the product's guiding principle — a phrase testable against every decision. If something didn't feel modern or inspiring, it didn't belong. This anchored the entire visual and interaction system before a single screen was drawn.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">02</div><div><div class="ov-step-title" data-en="Custom Iconography System" data-es="Sistema de Iconografía Custom">Custom Iconography System</div><div class="ov-step-desc" data-en="Designed every icon from scratch — instruments, controls, loops, recording states. Icons had to be instantly recognizable on a large touch surface, legible from multiple angles, and functional without any label. Each icon was a mini interaction design problem." data-es="Diseñé cada ícono desde cero — instrumentos, controles, loops, estados de grabación. Los íconos debían ser reconocibles instantáneamente en una superficie táctil grande, legibles desde múltiples ángulos y funcionales sin etiquetas. Cada ícono fue un mini problema de interaction design.">Designed every icon from scratch — instruments, controls, loops, recording states. Icons had to be instantly recognizable on a large touch surface, legible from multiple angles, and functional without any label. Each icon was a mini interaction design problem.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">03</div><div><div class="ov-step-title" data-en="Interface Architecture" data-es="Arquitectura de la Interfaz">Interface Architecture</div><div class="ov-step-desc" data-en="One primary action always visible. Seven independent track layers. Recording in 3 states: start / stop+share / delete. Every interaction decision was pressure-tested against the same question: does this interrupt creative flow? If yes, redesign." data-es="Una acción primaria siempre visible. Siete capas de tracks independientes. Grabación en 3 estados: iniciar / detener+compartir / eliminar. Cada decisión de interacción fue testeada contra la misma pregunta: ¿esto interrumpe el flujo creativo? Si era sí, rediseñar.">One primary action always visible. Seven independent track layers. Recording in 3 states: start / stop+share / delete. Every interaction decision was pressure-tested against the same question: does this interrupt creative flow? If yes, redesign.</div></div></div>
+    <div class="ov-section" style="margin-top:48px">
+      <div class="ov-section-title" data-en="Key Interactions" data-es="Interacciones clave">Key Interactions</div>
+    </div>
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title">Record</div><div class="ov-step-desc" data-en="1st touch: starts recording, blinking red dot. 2nd touch: stops and shows sharing options. 3rd touch: deletes recording. Three states, one control — minimum cognitive interruption." data-es="1er toque: inicia grabación, punto rojo parpadeante. 2do toque: detiene y muestra opciones de compartir. 3er toque: elimina grabación. Tres estados, un control — interrupción cognitiva mínima.">1st touch: starts recording, blinking red dot. 2nd touch: stops and shows sharing options. 3rd touch: deletes recording. Three states, one control — minimum cognitive interruption.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title" data-en="Metronome" data-es="Metrónomo">Metronome</div><div class="ov-step-desc" data-en="Touch enables/disables. Bursting circles animation communicates active state without requiring attention — peripheral awareness design." data-es="Toque habilita/deshabilita. La animación de círculos que estallan comunica estado activo sin requerir atención — diseño de percepción periférica.">Touch enables/disables. Bursting circles animation communicates active state without requiring attention — peripheral awareness design.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title" data-en="Loop Tracks · 7 Layers" data-es="Loop Tracks · 7 Capas">Loop Tracks · 7 Layers</div><div class="ov-step-desc" data-en="Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualization — each layer independently controllable with tap, hold, and swipe gestures. Complex layering made simple through spatial hierarchy." data-es="Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualización — cada capa independientemente controlable con gestos de tap, hold y swipe. Layering complejo simplificado mediante jerarquía espacial.">Drum · Rhythm · Chords · Bass · Lead · Guitar · Visualization — each layer independently controllable with tap, hold, and swipe gestures. Complex layering made simple through spatial hierarchy.</div></div></div>
+    <div class="ov-section" style="margin-top:48px">
+      <div class="ov-section-title" data-en="Demo Video" data-es="Video Demo">Demo Video</div>
+    </div>
+    <a href="https://www.youtube.com/watch?v=qRJEFdPOU94" target="_blank" rel="noopener" class="ov-video-thumb" aria-label="Ver demo PULSE en YouTube">
+      <img src="https://img.youtube.com/vi/qRJEFdPOU94/maxresdefault.jpg" alt="PULSE DJ Demo" onerror="this.src='https://img.youtube.com/vi/qRJEFdPOU94/hqdefault.jpg'">
+      <div class="ov-video-play" aria-hidden="true">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.55)"/><polygon points="26,20 26,44 48,32" fill="white"/></svg>
+      </div>
+      <div class="ov-video-label" data-en="Watch on YouTube ↗" data-es="Ver en YouTube ↗">Watch on YouTube ↗</div>
+    </a>
+    <div class="ov-section" style="margin-top:48px">
+      <div class="ov-section-title" data-en="Outcomes" data-es="Resultados">Outcomes</div>
+      <p class="ov-text" data-en="PULSE demonstrated that a complex multi-touch music interface could be both powerful and approachable. The semantic guiding phrase proved its value — every ambiguous decision had a test. A formative project that shaped my understanding of interaction design for non-standard surfaces and constraint-driven creativity." data-es="PULSE demostró que una interfaz multi-touch musical compleja puede ser tanto poderosa como accesible. La frase guía semántica demostró su valor — cada decisión ambigua tenía un test. Un proyecto formativo que definió mi comprensión del interaction design para superficies no estándar y creatividad guiada por restricciones.">PULSE demonstrated that a complex multi-touch music interface could be both powerful and approachable. The semantic guiding phrase proved its value — every ambiguous decision had a test. A formative project that shaped my understanding of interaction design for non-standard surfaces and constraint-driven creativity.</p>
+    </div>
+    <div class="ov-quote" data-en="&quot;A good interface for a musician disappears. If they're thinking about the UI, the UI failed.&quot;" data-es="&quot;Una buena interfaz para un músico desaparece. Si están pensando en el UI, el UI falló.&quot;">"A good interface for a musician disappears. If they're thinking about the UI, the UI failed."</div>
   </div>
+</div>
+
+<!-- OVERLAY EliteMarket -->
+<div class="overlay" id="ov-elite">
+  <div class="ov-nav">
+    <span class="ov-nav-label" data-en="EliteMarket · Case Study" data-es="EliteMarket · Caso de Estudio">EliteMarket · Case Study</span>
+    <button class="close-btn" onclick="closeOverlay()" data-en="← Close" data-es="← Cerrar">← Close</button>
+  </div>
+  <div class="ov-body">
+    <div class="ov-eyebrow" data-en="UX Designer · AI-Native Workflow · Marketplace" data-es="UX Designer · Flujo AI-Native · Marketplace">UX Designer · AI-Native Workflow · Marketplace</div>
+    <h2 class="ov-title" data-html data-en="Designing With<br><em>Intelligence</em>" data-es="Diseñar Con<br><em>Inteligencia</em>">Designing With<br><em>Intelligence</em></h2>
+    <div class="ov-meta">
+      <div class="ov-meta-item"><div class="ov-meta-label" data-en="Role" data-es="Rol">Role</div><div class="ov-meta-val">UX Designer · Lead</div></div>
+      <div class="ov-meta-item"><div class="ov-meta-label" data-en="AI Tools" data-es="Herramientas IA">AI Tools</div><div class="ov-meta-val">Claude · Figma MCP</div></div>
+      <div class="ov-meta-item"><div class="ov-meta-label" data-en="Timeline" data-es="Periodo">Timeline</div><div class="ov-meta-val" data-en="2025 — Present" data-es="2025 — Presente">2025 — Present</div></div>
+    </div>
+
+    <div class="ov-section">
+      <div class="ov-section-title">Overview</div>
+      <p class="ov-text" data-en="EliteMarket is a premium digital services marketplace built for the Costa Rican market — connecting verified local sellers (Marketing, UX/UI, Audiovisual) with buyers through a trust-first, mobile-first experience. I designed the entire product from zero: architecture, design system, component library, and user flows — with Claude and Figma MCP as integrated AI partners throughout." data-es="EliteMarket es un marketplace premium de servicios digitales construido para el mercado costarricense — conectando vendedores locales verificados (Marketing, UX/UI, Audiovisual) con compradores a través de una experiencia trust-first y mobile-first. Diseñé el producto completo desde cero: arquitectura, design system, librería de componentes y flujos de usuario — con Claude y Figma MCP como partners de IA integrados a lo largo del proceso.">EliteMarket is a premium digital services marketplace built for the Costa Rican market — connecting verified local sellers (Marketing, UX/UI, Audiovisual) with buyers through a trust-first, mobile-first experience. I designed the entire product from zero: architecture, design system, component library, and user flows — with Claude and Figma MCP as integrated AI partners throughout.</p>
+    </div>
+
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="The Challenge" data-es="El Reto">The Challenge</div>
+      <p class="ov-text" data-en="Costa Rica's digital services market has a trust problem. Buyers don't know if sellers are real, and sellers lack a premium channel to showcase their work. The core UX challenge: make quality, safety, and discovery feel effortless — on mobile, for a market that lives on WhatsApp." data-es="El mercado de servicios digitales en Costa Rica tiene un problema de confianza. Los compradores no saben si los vendedores son reales, y los vendedores carecen de un canal premium para mostrar su trabajo. El reto UX central: hacer que la calidad, la seguridad y el descubrimiento se sientan naturales — en mobile, para un mercado que vive en WhatsApp.">Costa Rica's digital services market has a trust problem. Buyers don't know if sellers are real, and sellers lack a premium channel to showcase their work. The core UX challenge: make quality, safety, and discovery feel effortless — on mobile, for a market that lives on WhatsApp.</p>
+    </div>
+
+    <div class="ov-section">
+      <div class="ov-section-title" data-en="AI-Native Workflow" data-es="Flujo AI-Native">AI-Native Workflow</div>
+      <p class="ov-text" style="margin-bottom:24px" data-en="This project was an experiment in working with AI not as a tool, but as a collaborator. Every major design decision had Claude as a sounding board. The workflow changed how I think about velocity, documentation, and the boundary between design and implementation." data-es="Este proyecto fue un experimento en trabajar con IA no como una herramienta, sino como un colaborador. Cada decisión de diseño importante tuvo a Claude como interlocutor. El flujo cambió cómo pienso sobre velocidad, documentación y la frontera entre diseño e implementación.">This project was an experiment in working with AI not as a tool, but as a collaborator. Every major design decision had Claude as a sounding board. The workflow changed how I think about velocity, documentation, and the boundary between design and implementation.</p>
+    </div>
+
+    <div class="ov-step"><div class="ov-step-num">01</div><div><div class="ov-step-title" data-en="Claude as UX Consultant" data-es="Claude como Consultor UX">Claude as UX Consultant</div><div class="ov-step-desc" data-en="Before opening Figma, I discussed architecture with Claude: information hierarchy, navigation patterns, trust signals, onboarding flows. It replaced the early whiteboarding phase — faster and with immediate challenge of assumptions." data-es="Antes de abrir Figma, discutí la arquitectura con Claude: jerarquía de información, patrones de navegación, señales de confianza, flujos de onboarding. Reemplazó la fase inicial de whiteboarding — más rápido y con cuestionamiento inmediato de supuestos.">Before opening Figma, I discussed architecture with Claude: information hierarchy, navigation patterns, trust signals, onboarding flows. It replaced the early whiteboarding phase — faster and with immediate challenge of assumptions.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">02</div><div><div class="ov-step-title" data-en="Figma MCP · Bidirectional Token Bridge" data-es="Figma MCP · Puente Bidireccional de Tokens">Figma MCP · Bidirectional Token Bridge</div><div class="ov-step-desc" data-en="I connected Figma directly to the codebase via MCP. Design tokens (colors, spacing, radius, shadows) defined in Figma variables were automatically synced to figma-tokens.json and then to Tailwind config — a single source of truth that eliminated the design-dev gap entirely." data-es="Conecté Figma directamente al codebase vía MCP. Los design tokens (colores, espaciado, radio, sombras) definidos en variables de Figma se sincronizaron automáticamente a figma-tokens.json y luego a la config de Tailwind — una única fuente de verdad que eliminó por completo el gap diseño-desarrollo.">I connected Figma directly to the codebase via MCP. Design tokens (colors, spacing, radius, shadows) defined in Figma variables were automatically synced to figma-tokens.json and then to Tailwind config — a single source of truth that eliminated the design-dev gap entirely.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">03</div><div><div class="ov-step-title" data-en="Claude for Design System Decisions" data-es="Claude para Decisiones de Design System">Claude for Design System Decisions</div><div class="ov-step-desc" data-en="Component variants, accessibility requirements (WCAG 2.1 AA), naming conventions, prop architecture — all decisions were made through conversation with Claude, documented in real time. The result: a 13-component library with consistent patterns and zero guesswork." data-es="Variantes de componentes, requisitos de accesibilidad (WCAG 2.1 AA), convenciones de nombres, arquitectura de props — todas las decisiones se tomaron mediante conversación con Claude, documentadas en tiempo real. El resultado: una librería de 13 componentes con patrones consistentes y sin ambigüedad.">Component variants, accessibility requirements (WCAG 2.1 AA), naming conventions, prop architecture — all decisions were made through conversation with Claude, documented in real time. The result: a 13-component library with consistent patterns and zero guesswork.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">04</div><div><div class="ov-step-title" data-en="AI-Assisted Iteration Loop" data-es="Loop de Iteración Asistida por IA">AI-Assisted Iteration Loop</div><div class="ov-step-desc" data-en="Once screens existed in Figma, Claude served as instant design critic: reviewing flows for cognitive friction, catching accessibility gaps, and suggesting micro-copy. Iteration cycles that used to take days compressed to hours." data-es="Una vez que las pantallas existían en Figma, Claude actuó como crítico de diseño instantáneo: revisando flujos por fricción cognitiva, detectando gaps de accesibilidad y sugiriendo micro-copy. Ciclos de iteración que antes tomaban días se comprimieron a horas.">Once screens existed in Figma, Claude served as instant design critic: reviewing flows for cognitive friction, catching accessibility gaps, and suggesting micro-copy. Iteration cycles that used to take days compressed to hours.</div></div></div>
+
+    <div class="ov-section" style="margin-top:52px">
+      <div class="ov-section-title" data-en="Design System · 3-Tier Token Architecture" data-es="Design System · Arquitectura de Tokens en 3 Niveles">Design System · 3-Tier Token Architecture</div>
+      <p class="ov-text" style="margin-bottom:24px" data-en="The token system follows three layers — from raw values to component-level decisions — synced live between Figma and code. No hardcoded values anywhere in the codebase." data-es="El sistema de tokens sigue tres capas — desde valores crudos hasta decisiones a nivel de componente — sincronizados en tiempo real entre Figma y el código. Sin valores hardcodeados en ninguna parte del codebase.">The token system follows three layers — from raw values to component-level decisions — synced live between Figma and code. No hardcoded values anywhere in the codebase.</p>
+    </div>
+
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title">Primitives</div><div class="ov-step-desc" data-en="Raw Tailwind-aligned values: all colors, spacing scale (4px base), border radii, shadows, typography. The foundation layer — never used directly in components." data-es="Valores crudos alineados a Tailwind: todos los colores, escala de espaciado (base 4px), radio de bordes, sombras, tipografía. La capa de fundación — nunca usada directamente en componentes.">Raw Tailwind-aligned values: all colors, spacing scale (4px base), border radii, shadows, typography. The foundation layer — never used directly in components.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title">Aliases</div><div class="ov-step-desc" data-en="Semantic names that give meaning: color.primary, bg.secondary, text.muted. Aliases can change the entire product's feel by updating one value — and no component breaks." data-es="Nombres semánticos que dan significado: color.primary, bg.secondary, text.muted. Los aliases pueden cambiar el look completo del producto actualizando un solo valor — sin romper ningún componente.">Semantic names that give meaning: color.primary, bg.secondary, text.muted. Aliases can change the entire product's feel by updating one value — and no component breaks.</div></div></div>
+    <div class="ov-step"><div class="ov-step-num">→</div><div><div class="ov-step-title">Mapped</div><div class="ov-step-desc" data-en="Component-level tokens: button.primary.bg, card.radius, input.border.focus. These are what components consume directly — creating a traceable path from design decision to code property." data-es="Tokens a nivel de componente: button.primary.bg, card.radius, input.border.focus. Estos son los que los componentes consumen directamente — creando un camino rastreable desde la decisión de diseño hasta la propiedad de código.">Component-level tokens: button.primary.bg, card.radius, input.border.focus. These are what components consume directly — creating a traceable path from design decision to code property.</div></div></div>
+
+    <div class="ov-section" style="margin-top:52px">
+      <div class="ov-section-title" data-en="Key UX Decisions" data-es="Decisiones UX Clave">Key UX Decisions</div>
+    </div>
+
+    <div class="ov-step"><div class="ov-step-num">01</div><div><div class="ov-step-title" data-en="Search-First Navigation" data-es="Navegación Search-First">Search-First Navigation</div><div class="ov-step-desc" data-en="The primary action in the bottom nav is search — not a feed. In a marketplace where intent is high (users arrive knowing they need a service), friction-free discovery outperforms passive browsing." data-es="La acción primaria en la bottom nav es búsqueda — no un feed. En un marketplace donde el intent es alto (los usuarios llegan sabiendo que necesitan un servicio), el descubrimiento sin fricción supera la navegación pasiva.">The primary action in the bottom nav is search — not a feed. In a marketplace where intent is high (users arrive knowing they need a service), friction-free discovery outperforms passive browsing.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">02</div><div><div class="ov-step-title" data-en="Verified Seller Badging as Primary Trust Signal" data-es="Verificación del Vendedor como Señal de Confianza Principal">Verified Seller Badging as Primary Trust Signal</div><div class="ov-step-desc" data-en="In a low-trust market, the verification badge does more conversion work than any copy or imagery. It's enforced server-side (RLS) — never client-side — making it impossible to fake. Trust signal integrity was a non-negotiable UX constraint." data-es="En un mercado de baja confianza, el badge de verificación hace más trabajo de conversión que cualquier copy o imagen. Se aplica server-side (RLS) — nunca client-side — lo que hace imposible falsificarlo. La integridad de la señal de confianza fue una restricción UX no negociable.">In a low-trust market, the verification badge does more conversion work than any copy or imagery. It's enforced server-side (RLS) — never client-side — making it impossible to fake. Trust signal integrity was a non-negotiable UX constraint.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">03</div><div><div class="ov-step-title" data-en="Glassmorphism as Premium Positioning Signal" data-es="Glassmorphism como Señal de Posicionamiento Premium">Glassmorphism as Premium Positioning Signal</div><div class="ov-step-desc" data-en="The aesthetic choice — dark backgrounds, frosted glass cards, subtle blur — was not cosmetic. It signals that this is a curated, premium environment different from generic classifieds. Visual language does the positioning work before the user reads a single word." data-es="La elección estética — fondos oscuros, tarjetas de vidrio esmerilado, blur sutil — no fue cosmética. Señala que este es un entorno curado y premium, diferente de los clasificados genéricos. El lenguaje visual hace el trabajo de posicionamiento antes de que el usuario lea una sola palabra.">The aesthetic choice — dark backgrounds, frosted glass cards, subtle blur — was not cosmetic. It signals that this is a curated, premium environment different from generic classifieds. Visual language does the positioning work before the user reads a single word.</div></div></div>
+
+    <div class="ov-step"><div class="ov-step-num">04</div><div><div class="ov-step-title" data-en="Seller Booth as Personal Brand Space" data-es="El Booth del Vendedor como Espacio de Marca Personal">Seller Booth as Personal Brand Space</div><div class="ov-step-desc" data-en="Each seller gets a /seller/:id route — a personal showcase with portfolio, services, reviews, and contact — not just a listing. The 'booth' mental model shifts perception from commodity listing to professional showcase, increasing seller motivation and buyer confidence." data-es="Cada vendedor obtiene una ruta /seller/:id — un showcase personal con portafolio, servicios, reseñas y contacto — no solo una ficha. El modelo mental de 'booth' cambia la percepción de listado commodity a showcase profesional, aumentando la motivación del vendedor y la confianza del comprador.">Each seller gets a /seller/:id route — a personal showcase with portfolio, services, reviews, and contact — not just a listing. The 'booth' mental model shifts perception from commodity listing to professional showcase, increasing seller motivation and buyer confidence.</div></div></div>
+
+    <div class="ov-section" style="margin-top:52px">
+      <div class="ov-section-title" data-en="Outcomes & Learnings" data-es="Resultados y Aprendizajes">Outcomes & Learnings</div>
+      <p class="ov-text" data-en="Working with AI as a design collaborator — not just a code generator — fundamentally changed my process. I made better-reasoned decisions faster. Documentation happened in real time. The distance between 'design intent' and 'shipped code' collapsed. The skill that evolved most wasn't using AI — it was knowing which questions to ask it." data-es="Trabajar con IA como colaborador de diseño — no solo como generador de código — cambió fundamentalmente mi proceso. Tomé decisiones mejor razonadas con mayor velocidad. La documentación ocurrió en tiempo real. La distancia entre 'intención de diseño' y 'código entregado' colapsó. La habilidad que más evolucionó no fue usar IA — fue saber qué preguntas hacerle.">Working with AI as a design collaborator — not just a code generator — fundamentally changed my process. I made better-reasoned decisions faster. Documentation happened in real time. The distance between 'design intent' and 'shipped code' collapsed. The skill that evolved most wasn't using AI — it was knowing which questions to ask it.</p>
+    </div>
+
+    <div class="ov-quote" data-en="&quot;The most valuable thing AI gave me wasn't speed — it was a thinking partner that never got tired of my questions.&quot;" data-es="&quot;Lo más valioso que me dio la IA no fue velocidad — fue un compañero de pensamiento que nunca se cansó de mis preguntas.&quot;">"The most valuable thing AI gave me wasn't speed — it was a thinking partner that never got tired of my questions."</div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-close" aria-label="Close">← Close</button>
+  <button class="lb-arrow lb-prev" aria-label="Previous image">←</button>
+  <img class="lb-img" src="" alt="">
+  <button class="lb-arrow lb-next" aria-label="Next image">→</button>
+  <div class="lb-counter" aria-live="polite"></div>
 </div>
 
 <script>
@@ -567,7 +743,7 @@ function closeOverlay() {
   document.querySelectorAll('.overlay.open').forEach(o => o.classList.remove('open'));
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !document.getElementById('lightbox').classList.contains('open')) closeOverlay(); });
 
 function setLang(lang) {
   document.documentElement.lang = lang;
@@ -593,6 +769,87 @@ document.getElementById('langToggle').addEventListener('click', () => {
 });
 
 setLang(localStorage.getItem('lang') || 'en');
+
+// ── Parallax ──
+(function() {
+  function updateParallax() {
+    document.querySelectorAll('.case').forEach(card => {
+      const img = card.querySelector('.vis-inner img');
+      if (!img) return;
+      const rect = card.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      if (rect.bottom < -100 || rect.top > viewH + 100) return;
+      const progress = (viewH - rect.top) / (viewH + rect.height);
+      const offset = (progress - 0.5) * 20;
+      img.style.transform = 'translateY(' + offset.toFixed(2) + 'px) translateZ(0)';
+    });
+  }
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  window.addEventListener('resize', updateParallax);
+  requestAnimationFrame(updateParallax);
+  requestAnimationFrame(updateParallax); // double-fire for Chrome paint init
+})();
+
+// ── Lightbox ──
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('.lb-img');
+  const lbCounter = lb.querySelector('.lb-counter');
+  let images = [], idx = 0;
+
+  function show() {
+    lbImg.src = images[idx].src;
+    lbImg.alt = images[idx].alt || '';
+    lbCounter.textContent = (idx + 1) + ' / ' + images.length;
+    const multi = images.length > 1;
+    lb.querySelector('.lb-prev').style.visibility = multi ? 'visible' : 'hidden';
+    lb.querySelector('.lb-next').style.visibility = multi ? 'visible' : 'hidden';
+  }
+
+  function open(imgs, startIdx) {
+    images = imgs;
+    idx = startIdx;
+    show();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    lbImg.src = '';
+    if (!document.querySelector('.overlay.open')) document.body.style.overflow = '';
+  }
+
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', e => { e.stopPropagation(); idx = (idx - 1 + images.length) % images.length; show(); });
+  lb.querySelector('.lb-next').addEventListener('click', e => { e.stopPropagation(); idx = (idx + 1) % images.length; show(); });
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') { idx = (idx - 1 + images.length) % images.length; show(); }
+    if (e.key === 'ArrowRight') { idx = (idx + 1) % images.length; show(); }
+    if (e.key === 'Escape') { e.stopImmediatePropagation(); close(); }
+  });
+
+  // Bind all overlay images
+  document.querySelectorAll('.overlay').forEach(ov => {
+    const imgs = Array.from(ov.querySelectorAll('.ov-body img'));
+    imgs.forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => open(imgs, imgs.indexOf(img)));
+    });
+  });
+
+  // Bind gallery-scroll images
+  document.querySelectorAll('.gallery-scroll').forEach(gs => {
+    const imgs = Array.from(gs.querySelectorAll('img'));
+    imgs.forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => open(imgs, imgs.indexOf(img)));
+    });
+  });
+})();
 </script>
 </body>
 </html>
